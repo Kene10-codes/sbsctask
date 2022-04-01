@@ -1,4 +1,4 @@
-import { Login, Layout, Profile, Home, AccountPage, Error404, RequireAuth, LinKPage } from './component/index'
+import { Login, Layout, Profile, Home, AccountPage, Error404, RequireAuth, LinKPage } from 'component/index'
 import { Route, Routes } from 'react-router-dom'
 import './App.css';
 
