@@ -1,7 +1,10 @@
 import axios from "axios"
 import { useFormik } from "formik"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import useAuth from "../../hooks/useAuth"
+import { useLocation, useNavigate} from "react-router-dom"
+
 import * as yup from 'yup'
 import './login.css'
 
@@ -21,7 +24,14 @@ const validationSchema = yup.object({
 
 //login component
 const Login = () => {
-  const [success, setSuccess] = useState(null)
+  const { setAuth } = useAuth()
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/';
+
+  //store success, error and shownPassword variable(data)
+  // const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
   const [shownPassword, setIsShowPassword] = useState(false)
 
@@ -40,12 +50,14 @@ const Login = () => {
       .catch(err => {
         if (err && err.response)
          setError(err.response.data)  
-         setSuccess(null)
+        //  setSuccess(null)
       })  
 
         if (response && response.data) {
-          setSuccess(response.data)
+          // setSuccess(response.data)
+          
           setError(null)
+          navigate(from, { replace: true})
           formik.resetForm()
       }
     } 
@@ -61,7 +73,7 @@ const Login = () => {
       
       <form onSubmit={formik.handleSubmit} className='login__form'>
         <h2 className="form__header">Log In</h2>
-        {!error && <span className='login__success'>{success ? "You have succesfully logged in" : ''}</span>}
+        {/* {!error && <span className='login__success'>{success ? "You have succesfully logged in" : ''}</span>} */}
         <span className='login__error'>{error ? "You have an error" : ''}</span>
          <div className="form__input-container">
           <input 

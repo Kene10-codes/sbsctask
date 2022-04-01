@@ -1,1 +1,8 @@
 export { default as Login } from './login/Login'
+export { default as Profile } from './profile/Profile'
+export { default as Layout } from './layout/Layout'
+export { default as Home } from './home/Home'
+export { default as AccountPage } from './account-pages/AccountPage'
+export { default as Error404 } from './Error404/Error404'
+export { default as RequireAuth } from './requireAuth/RequireAuth'
+export { default as LinKPage } from './Linkpages/LinkPage'
