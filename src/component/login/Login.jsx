@@ -8,18 +8,29 @@ import './login.css'
 
 //check if it's a strong password with minimum of 8 characters
 const validationSchema = yup.object({
-  email: yup.string().email("Please enter a valid email address").required("Email is required"),
-  password: yup.string().min(8, 'Please must not be less than 8 characters').required('Password is required')
+  email: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, 'Please must not be less than 8 characters')
+    .required('Password is required')
 })
 
+
+//login component
 const Login = () => {
   const [success, setSuccess] = useState(null)
+  const [error, setError] = useState(null)
   const [shownPassword, setIsShowPassword] = useState(false)
 
+  //hide or show password func
   const togglePassword = () => {
     setIsShowPassword(!shownPassword)
   }
 
+    //submit form func
     const onSubmit = async (values) => {
       const { email, password } = values
       const data = { email, password }
@@ -27,15 +38,17 @@ const Login = () => {
       const response = await axios
       .post('https://reqres.in/api/login', data)
       .catch(err => {
-        if (err && err.response) console.log('Error: ', err)    
+        if (err && err.response)
+         setError(err.response.data)  
+         setSuccess(null)
       })  
 
         if (response && response.data) {
           setSuccess(response.data)
+          setError(null)
+          formik.resetForm()
       }
-    }
-
-    
+    } 
 
     const formik = useFormik({ initialValues: { email: '', password: '' },
     validateOnBlur: true,
@@ -43,14 +56,13 @@ const Login = () => {
     validationSchema: validationSchema
   })
 
-  console.log("errors", formik.errors)
-
-
   return (
     <div className='login__container'>
-      <span className='login__success'>{success ? success : ''}</span>
+      
       <form onSubmit={formik.handleSubmit} className='login__form'>
         <h2 className="form__header">Log In</h2>
+        {!error && <span className='login__success'>{success ? "You have succesfully logged in" : ''}</span>}
+        <span className='login__error'>{error ? "You have an error" : ''}</span>
          <div className="form__input-container">
           <input 
               className='form__input-email'
@@ -87,7 +99,7 @@ const Login = () => {
               </span>
          </div>
           
-          <button type="submit" className="login__form-submit">Log in</button>
+          <button type="submit" disabled={!formik.isValid} className="login__form-submit">Log in</button>
       </form>
     </div>
   )

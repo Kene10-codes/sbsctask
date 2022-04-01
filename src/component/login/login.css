@@ -9,7 +9,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* max-width: 500px; */
 }
 
 .form__header {
@@ -52,7 +51,18 @@ input {
 
 .login__success {
     color: green;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.login__error {
+    color: red;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .form__errors {
@@ -71,5 +81,9 @@ input {
     font-size: 13px;
     font-family: 'Poppins', sans-serif;
     border-radius: 5px;
+}
+
+.login__form-submit:disabled {
+    filter: contrast(0.6);
 }
 
