@@ -21,6 +21,7 @@ const validationSchema = yup.object({
     .required('Password is required')
 })
 
+const LOGIN_API_URL = 'https://reqres.in/api/login'
 
 //login component
 const Login = () => {
@@ -29,9 +30,10 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/';
+  console.log(from)
 
   //store success, error and shownPassword variable(data)
-  // const [success, setSuccess] = useState(null)
+  const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
   const [shownPassword, setIsShowPassword] = useState(false)
 
@@ -45,21 +47,40 @@ const Login = () => {
       const { email, password } = values
       const data = { email, password }
 
-      const response = await axios
-      .post('https://reqres.in/api/login', data)
-      .catch(err => {
-        if (err && err.response)
-         setError(err.response.data)  
-        //  setSuccess(null)
-      })  
+      try {
+        const response = await axios
+        .post(LOGIN_API_URL, data)
 
-        if (response && response.data) {
-          // setSuccess(response.data)
-          
-          setError(null)
-          navigate(from, { replace: true})
-          formik.resetForm()
+        console.log(JSON.stringify(response?.data))
+        // setSuccess(response.data)
+        navigate(-1);
+      } catch (err) {
+        if (!err?.response) {
+          setError(err.response, 'No Server Response');
+      } else if (err.response?.status === 400) {
+          setError(err.response, 'Missing Email or Password');
+      } else if (err.response?.status === 401) {
+          setError(err.response,'Unauthorized');
+      } else {
+          setError(err.response, 'Login Failed');
+       }
       }
+
+      // const response = await axios
+      // .post('https://reqres.in/api/login', data)
+      // .catch(err => {
+      //   if (err && err.response)
+      //    setError(err.response.data)  
+      //   //  setSuccess(null)
+      // })  
+
+      //   if (response && response.data) {
+      //     // setSuccess(response.data)
+          
+      //     setError(null)
+      //     navigate(from, { replace: true})
+      //     formik.resetForm()
+      // }
     } 
 
     const formik = useFormik({ initialValues: { email: '', password: '' },

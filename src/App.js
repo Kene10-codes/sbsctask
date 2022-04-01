@@ -14,8 +14,8 @@ function App() {
          {/* protectd routes */}
          <Route element={<RequireAuth />}>
           <Route path='/' element={<Home />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path='account-page' element={<AccountPage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path='/account-page' element={<AccountPage />} />
          </Route>
 
          {/* catch error */}
