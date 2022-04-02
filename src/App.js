@@ -5,21 +5,21 @@ import './App.css';
 function App() {
   return (
     <Routes>
-       <Route path='/' element={<Layout />}>
+       <Route path="/" element={<Layout />}>
          {/* unprotected routes */}
-         <Route path='login' element={<Login />} />
-         <Route path='link-page' element={<LinKPage />} />
+         <Route path="login" element={<Login />} />
+         <Route path="link-page" element={<LinKPage />} />
 
 
          {/* protectd routes */}
          <Route element={<RequireAuth />}>
-          <Route path='/' element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path='/account-page' element={<AccountPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="account-page" element={<AccountPage />} />
          </Route>
 
          {/* catch error */}
-         <Route path='*' element={<Error404 />} />
+         <Route path="*" element={<Error404 />} />
        </Route>
     </Routes>
   );

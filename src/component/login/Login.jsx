@@ -29,7 +29,7 @@ const Login = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
   console.log(from)
 
   //store success, error and shownPassword variable(data)
@@ -50,10 +50,18 @@ const Login = () => {
       try {
         const response = await axios
         .post(LOGIN_API_URL, data)
+        .then(response => {
+          if(response.data.token) {
+            localStorage.setItem("user", JSON.stringify(response.data.token))
+            console.log(response.data.token)
+          }
+        })
+
 
         console.log(JSON.stringify(response?.data))
         // setSuccess(response.data)
-        navigate(-1);
+        // navigate(-1);
+        navigate(from, { replace: true })
       } catch (err) {
         if (!err?.response) {
           setError(err.response, 'No Server Response');

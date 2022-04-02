@@ -1,0 +1,51 @@
+body {
+    background: rgb(75, 75, 192);
+}
+
+
+section {
+    width: 100%;
+    max-width: 300px;
+    min-height: 400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    background-color:  white !important;
+}
+
+.link__login {
+    margin: 10px 0;
+    height: 40px;
+    background: transparent;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 10px;
+    color: rgb(75, 75, 192);
+    text-decoration: none;
+    border-radius: 10px;
+    border: 1px solid rgb(75, 75, 192);
+
+}
+
+.link__home,
+.link__account,
+.link__profile {
+    margin: 10px 0;
+    height: 40px;
+    background: rgb(75, 75, 192);
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    
+}

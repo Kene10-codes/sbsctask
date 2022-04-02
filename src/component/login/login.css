@@ -9,13 +9,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: transparent;
 }
 
 .form__header {
-    font-size: 36px;
-    margin: 20px 0;
+    font-size: 28px;
+    margin: 5px 0;
     text-align: center;
-    color: blue;
+    color: rgb(75, 75, 192);
 }
 
 .form__input-email,
@@ -26,6 +27,8 @@
     width: 190px;
     border-radius: 5px;
     padding: 5px;
+    outline: none;
+    border: none;
 }
 
 .form__input-container-password {
@@ -37,7 +40,7 @@
     position: absolute;
     top: .2;
     right: 0px;
-    bottom: 8px;
+    bottom: 15px;
     left: 170px;
     font-family: 'Poppins', sans-serif;
 }
@@ -72,11 +75,21 @@ input {
     font-size: 12px;
 }
 
+.login__form  {
+    width: 300px;
+    background: white;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .login__form-submit {
     width: 190px;
     height: 35px;
     margin: 10px 0;
-    background: blue;
+    background: rgb(75, 75, 192);
     color: white;
     border: none;
     font-size: 13px;
