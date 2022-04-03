@@ -70,20 +70,18 @@ function App() {
           </div>
         )}
       </nav>
-    <Routes>
-      
+
+    <Routes path="/" element={<Layout />} >
          {/* unprotected routes */}
-         <Route path="/login" element={<Login />} />
+         <Route path={"/login"} element={<Login />} />
 
          {/* protectd routes */}
-          <Route path="/" element={<Login />} />
-          <Route path='/home' element={<Home />}/>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/account-page" element={<AccountPage />} />
+          <Route path={"/"} element={<Login />} />
+          <Route path={'/home'} element={<Home />}/>
+          <Route path={"/profile"} element={<Profile />} />
+          <Route path={"/account-page"} element={<AccountPage />} />
 
           <Route path="*" element={<Error404 />} />
-        
-       
     </Routes>
     </div>
   );
