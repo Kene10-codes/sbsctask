@@ -26,14 +26,8 @@ function App() {
 
 <nav>
         <div >
-          <li >
-            <Link to={"/home"}>
-              Home
-            </Link>
-          </li>
-
           {currentUser && (
-            <li className="nav-item">
+            <li>
               <Link to={"/profile"}>
                 Profile
               </Link>
@@ -41,10 +35,18 @@ function App() {
           )}
 
         {currentUser && (       
-        <li className="nav-item">
+        <li>
             <Link to={"/account-page"}>
               Account Page
             </Link>
+            </li>
+          )}
+
+          {currentUser && (
+              <li >
+              <Link to={"/home"}>
+                Home
+              </Link>
             </li>
           )}
         </div>
@@ -60,15 +62,9 @@ function App() {
           </div>
         ) : (
           <div>
-            <li className="nav-item">
+            <li>
               <Link to={"/login"} >
                 Login
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link to={"/signup"} >
-                Sign up
               </Link>
             </li>
           </div>
