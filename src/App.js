@@ -80,7 +80,8 @@ function App() {
          <Route path="/login" element={<Login />} />
 
          {/* protectd routes */}
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path='/home' element={<Home />}/>
           <Route path="/profile" element={<Profile />} />
           <Route path="/account-page" element={<AccountPage />} />
 
