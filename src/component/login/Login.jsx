@@ -2,8 +2,9 @@ import axios from "axios"
 import { useFormik } from "formik"
 import { useEffect, useState, useContext } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import useAuth from "../../hooks/useAuth"
+import useAuth from "hooks/useAuth"
 import { useLocation, useNavigate} from "react-router-dom"
+import AuthService from 'service/authService'
 
 import * as yup from 'yup'
 import './login.css'
@@ -21,7 +22,7 @@ const validationSchema = yup.object({
     .required('Password is required')
 })
 
-const LOGIN_API_URL = 'https://reqres.in/api/login'
+// const LOGIN_API_URL = 'https://reqres.in/api/login'
 
 //login component
 const Login = () => {
@@ -45,51 +46,30 @@ const Login = () => {
     //submit form func
     const onSubmit = async (values) => {
       const { email, password } = values
-      const data = { email, password }
 
       try {
-        const response = await axios
-        .post(LOGIN_API_URL, data)
-        .then(response => {
-          if(response.data.token) {
-            localStorage.setItem("user", JSON.stringify(response.data.token))
-            console.log(response.data.token)
-          }
-        })
-
-
-        console.log(JSON.stringify(response?.data))
-        // setSuccess(response.data)
-        // navigate(-1);
-        navigate(from, { replace: true })
-      } catch (err) {
-        if (!err?.response) {
-          setError(err.response, 'No Server Response');
-      } else if (err.response?.status === 400) {
-          setError(err.response, 'Missing Email or Password');
-      } else if (err.response?.status === 401) {
-          setError(err.response,'Unauthorized');
-      } else {
-          setError(err.response, 'Login Failed');
+        await AuthService.login(email, password)
+        .then(() => {
+          navigate("/home")
+          window.location.reload()
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+    } catch (err) {
+       if (!err?.response) {
+            setError(err.response, 'No Server Response');
+        } else if (err.response?.status === 400) {
+            setError(err.response, 'Missing Email or Password');
+        } else if (err.response?.status === 401) {
+            setError(err.response,'Unauthorized');
+        } else {
+            setError(err.response, 'Login Failed');
        }
-      }
 
-      // const response = await axios
-      // .post('https://reqres.in/api/login', data)
-      // .catch(err => {
-      //   if (err && err.response)
-      //    setError(err.response.data)  
-      //   //  setSuccess(null)
-      // })  
-
-      //   if (response && response.data) {
-      //     // setSuccess(response.data)
-          
-      //     setError(null)
-      //     navigate(from, { replace: true})
-      //     formik.resetForm()
-      // }
-    } 
+    }
+ } 
 
     const formik = useFormik({ initialValues: { email: '', password: '' },
     validateOnBlur: true,
